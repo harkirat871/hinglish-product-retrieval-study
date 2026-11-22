@@ -1,0 +1,101 @@
+id,part,vehicle,title,doc
+1,brake pad,swift,brake pad for swift,brake pad swift OEM Denso
+2,brake pad,alto,brake pad for alto,brake pad alto OEM Bosch
+3,brake pad,baleno,brake pad for baleno,disc pad baleno genuine Exide
+4,brake pad,i20,brake pad for i20,brake pad i20 genuine Minda
+5,brake pad,creta,brake pad for creta,disc pad creta genuine Exide
+6,brake pad,city,brake pad for city,disc pad city OEM Exide
+7,brake pad,innova,brake pad for innova,brake pads innova OEM Denso
+8,brake pad,bolero,brake pad for bolero,brake pad bolero genuine Gabriel
+9,brake pad,splendor,brake pad for splendor,brake pad splendor genuine Denso
+10,air filter,swift,air filter for swift,hawa filter swift aftermarket Exide
+11,air filter,alto,air filter for alto,air filter alto OEM Gabriel
+12,air filter,baleno,air filter for baleno,hawa filter baleno genuine Exide
+13,air filter,i20,air filter for i20,hawa filter i20 OEM Minda
+14,air filter,creta,air filter for creta,air filter creta OEM Minda
+15,air filter,city,air filter for city,air filter city genuine Bosch
+16,air filter,innova,air filter for innova,hawa filter innova OEM Denso
+17,air filter,bolero,air filter for bolero,hawa filter bolero genuine Denso
+18,air filter,splendor,air filter for splendor,air filter splendor OEM Minda
+19,air filter,pulsar,air filter for pulsar,air filter pulsar genuine Gabriel
+20,oil filter,swift,oil filter for swift,oil filter swift OEM Denso
+21,oil filter,alto,oil filter for alto,oil filter alto genuine Bosch
+22,oil filter,baleno,oil filter for baleno,engine oil filter baleno aftermarket Bosch
+23,oil filter,i20,oil filter for i20,engine oil filter i20 genuine Gabriel
+24,oil filter,creta,oil filter for creta,engine oil filter creta genuine Denso
+25,oil filter,city,oil filter for city,engine oil filter city OEM Exide
+26,oil filter,innova,oil filter for innova,engine oil filter innova aftermarket Minda
+27,oil filter,bolero,oil filter for bolero,oil filter bolero OEM Gabriel
+28,clutch plate,alto,clutch plate for alto,clutch kit alto OEM Bosch
+29,clutch plate,baleno,clutch plate for baleno,clutch kit baleno OEM Denso
+30,clutch plate,i20,clutch plate for i20,clutch plate i20 OEM Bosch
+31,clutch plate,creta,clutch plate for creta,clutch kit creta OEM Denso
+32,clutch plate,innova,clutch plate for innova,clutch kit innova genuine Denso
+33,clutch plate,bolero,clutch plate for bolero,clutch plate bolero OEM Bosch
+34,clutch plate,splendor,clutch plate for splendor,clutch kit splendor OEM Exide
+35,clutch plate,pulsar,clutch plate for pulsar,clutch plate pulsar aftermarket Minda
+36,spark plug,swift,spark plug for swift,spark plug swift OEM Denso
+37,spark plug,alto,spark plug for alto,spark plug alto aftermarket Denso
+38,spark plug,baleno,spark plug for baleno,spark plug baleno OEM Bosch
+39,spark plug,creta,spark plug for creta,spark plug creta OEM Minda
+40,spark plug,city,spark plug for city,plug city OEM Minda
+41,spark plug,innova,spark plug for innova,plug innova genuine Exide
+42,spark plug,bolero,spark plug for bolero,spark plug bolero OEM Denso
+43,spark plug,splendor,spark plug for splendor,plug splendor aftermarket Exide
+44,spark plug,pulsar,spark plug for pulsar,spark plug pulsar genuine Bosch
+45,headlight,swift,headlight for swift,headlamp swift OEM Minda
+46,headlight,alto,headlight for alto,headlight alto genuine Bosch
+47,headlight,baleno,headlight for baleno,headlight baleno aftermarket Bosch
+48,headlight,i20,headlight for i20,head lamp i20 OEM Gabriel
+49,headlight,creta,headlight for creta,headlight creta OEM Exide
+50,headlight,city,headlight for city,headlight city aftermarket Gabriel
+51,headlight,innova,headlight for innova,headlight innova OEM Gabriel
+52,headlight,bolero,headlight for bolero,head lamp bolero aftermarket Bosch
+53,headlight,splendor,headlight for splendor,headlamp splendor genuine Bosch
+54,headlight,pulsar,headlight for pulsar,head lamp pulsar genuine Minda
+55,shock absorber,swift,shock absorber for swift,suspension swift aftermarket Minda
+56,shock absorber,alto,shock absorber for alto,shocker alto aftermarket Minda
+57,shock absorber,baleno,shock absorber for baleno,shock absorber baleno aftermarket Exide
+58,shock absorber,creta,shock absorber for creta,suspension creta genuine Bosch
+59,shock absorber,city,shock absorber for city,shock absorber city genuine Gabriel
+60,shock absorber,innova,shock absorber for innova,shock absorber innova aftermarket Bosch
+61,shock absorber,bolero,shock absorber for bolero,shock absorber bolero aftermarket Denso
+62,shock absorber,splendor,shock absorber for splendor,shocker splendor aftermarket Gabriel
+63,shock absorber,pulsar,shock absorber for pulsar,suspension pulsar OEM Gabriel
+64,wiper blade,swift,wiper blade for swift,wiper swift genuine Bosch
+65,wiper blade,alto,wiper blade for alto,wiper blade alto OEM Denso
+66,wiper blade,i20,wiper blade for i20,wiper blade i20 genuine Exide
+67,wiper blade,city,wiper blade for city,wiper blade city OEM Minda
+68,wiper blade,innova,wiper blade for innova,wiper blade innova OEM Exide
+69,battery,alto,battery for alto,car battery alto aftermarket Minda
+70,battery,baleno,battery for baleno,car battery baleno genuine Denso
+71,battery,i20,battery for i20,car battery i20 aftermarket Denso
+72,battery,creta,battery for creta,battery creta genuine Gabriel
+73,battery,city,battery for city,battery city genuine Exide
+74,battery,innova,battery for innova,car battery innova genuine Denso
+75,battery,bolero,battery for bolero,battery bolero aftermarket Denso
+76,battery,splendor,battery for splendor,car battery splendor OEM Exide
+77,radiator,swift,radiator for swift,coolant radiator swift OEM Bosch
+78,radiator,alto,radiator for alto,radiator alto aftermarket Bosch
+79,radiator,baleno,radiator for baleno,radiator baleno aftermarket Denso
+80,radiator,i20,radiator for i20,coolant radiator i20 genuine Denso
+81,radiator,creta,radiator for creta,coolant radiator creta genuine Bosch
+82,radiator,city,radiator for city,coolant radiator city genuine Bosch
+83,radiator,innova,radiator for innova,radiator innova OEM Denso
+84,radiator,bolero,radiator for bolero,coolant radiator bolero OEM Gabriel
+85,timing belt,swift,timing belt for swift,timing belt swift genuine Minda
+86,timing belt,alto,timing belt for alto,cam belt alto OEM Exide
+87,timing belt,baleno,timing belt for baleno,timing belt baleno genuine Denso
+88,timing belt,i20,timing belt for i20,timing belt i20 aftermarket Minda
+89,timing belt,creta,timing belt for creta,timing belt creta aftermarket Exide
+90,timing belt,city,timing belt for city,cam belt city OEM Minda
+91,timing belt,innova,timing belt for innova,timing belt innova genuine Minda
+92,timing belt,bolero,timing belt for bolero,timing belt bolero genuine Denso
+93,side mirror,swift,side mirror for swift,sheesha swift OEM Minda
+94,side mirror,alto,side mirror for alto,side mirror alto aftermarket Bosch
+95,side mirror,baleno,side mirror for baleno,side mirror baleno genuine Gabriel
+96,side mirror,i20,side mirror for i20,side mirror i20 genuine Bosch
+97,side mirror,creta,side mirror for creta,sheesha creta aftermarket Denso
+98,side mirror,city,side mirror for city,sheesha city aftermarket Exide
+99,side mirror,innova,side mirror for innova,sheesha innova genuine Bosch
+100,side mirror,bolero,side mirror for bolero,sheesha bolero genuine Exide
