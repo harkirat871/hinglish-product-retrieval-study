@@ -38,3 +38,10 @@ Top-1 and Top-3 accuracy are calculated on answerable queries only. Sixteen unan
 ## Scope
 
 This is an exploratory, synthetic pilot study. It is not peer-reviewed. It evaluates retrieval ranking only—not LLM response generation, a chatbot, real product compatibility, live inventory, or customer outcomes. See `documentation/` for the data dictionary, reproducibility notes, and AI-assistance disclosure.
+
+## Licensing and citation
+
+The Python source code in `src/` is licensed under the MIT License (`LICENSE`). The manuscript, synthetic data, generated figures, and project documentation are licensed under CC BY 4.0 (`LICENSE-DATA.md`). See each license file for scope and attribution details.
+
+Citation metadata is provided in `CITATION.cff`; GitHub can display a suggested citation from this file.
+
