@@ -1,1 +1,238 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{setspace,graphicx,booktabs,tabularx,array,amsmath,amssymb,float,caption,enumitem,xcolor,hyperref,fancyhdr,url}
+\usepackage[backend=biber,style=authoryear,natbib=true]{biblatex}
+\addbibresource{references.bib}
+\hypersetup{colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black,pdftitle={Evaluating Typo-Robust Product Retrieval for Hinglish E-Commerce Queries},pdfauthor={Harkirat Singh},pdfsubject={Synthetic pilot study of information retrieval}}
+\setstretch{1.12}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0.25em}
+\setlist[itemize]{leftmargin=1.5em,itemsep=0.2em,topsep=0.3em}
+\setlist[enumerate]{leftmargin=1.6em,itemsep=0.2em,topsep=0.3em}
+\captionsetup{font=small,labelfont=bf}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Typo-Robust Retrieval for Hinglish Queries}
+\fancyhead[R]{\small Synthetic Pilot Study}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\newcommand{\includeorplaceholder}[2]{%
+  \IfFileExists{#1}{\includegraphics[width=#2\linewidth]{#1}}{%
+    \fbox{\parbox{0.88\linewidth}{\centering Figure asset not yet generated.\\
+    Run \texttt{python src/make\_figures.py} from the repository root.}}}%
+}
+\title{\textbf{Evaluating Typo-Robust Product Retrieval for Hinglish E-Commerce Queries:}\\[0.35em]
+\large A Comparative Synthetic Pilot Study}
+\author{Harkirat Singh\\\normalsize Independent Student Researcher}
+\date{November 2026}
+\begin{document}
+\maketitle
 
+\begin{abstract}
+Informal e-commerce queries may combine English product terminology with Hindi expressions typed in Roman script, while non-standard spelling can make exact lexical matching difficult. This pilot study compares three information-retrieval approaches---BM25, character n-gram term frequency--inverse document frequency (TF-IDF), and a hybrid Reciprocal Rank Fusion (RRF) method---on a synthetic automotive catalog containing 100 product records and 180 generated Roman-script Hinglish-style queries. Queries are divided into clean, light-variation, and heavy-variation conditions. On the 164 answerable queries, character n-gram TF-IDF achieves the highest overall Top-1 accuracy (89.6\%; 95\% percentile-bootstrap interval: 84.8\%--93.9\%), compared with 72.6\% for BM25 and 74.4\% for hybrid RRF. Under heavy spelling variation, character n-gram TF-IDF reaches 80.7\% Top-1 accuracy, while BM25 and hybrid RRF reach 26.3\% and 33.3\%, respectively. The results indicate that character-level representations are more robust to the specific spelling perturbations encoded in this synthetic dataset. Because both catalog and queries are generated from predefined templates and variation lists, the findings are exploratory and should not be interpreted as evidence of real-world customer-search performance.
+\end{abstract}
+\noindent\textbf{Keywords:} Hinglish; code-mixing; information retrieval; BM25; character n-grams; TF-IDF; e-commerce search; spelling variation.
+
+\section{Introduction}
+Search queries written by bilingual users can combine vocabulary and grammatical patterns from more than one language. In digital settings, Hindi-English code-mixing is also commonly represented in Roman script, with spelling varying across writers and contexts. Recent work has examined mixed-language retrieval and Hindi-English code-mixed language processing through dedicated benchmarks and annotated datasets \citep{kim2025milq,sheth2025comi,yang2025codemixbench}. These efforts motivate further study of applied retrieval settings in which a search system must identify a specific item from a short, informal query.
+
+This study considers a small e-commerce-style product lookup task. The synthetic catalog contains automotive components associated with vehicle labels. A query is considered successfully retrieved only when the first-ranked product matches both the requested component and the requested vehicle. Retrieving the right component for the wrong vehicle is therefore an incorrect result under the task definition.
+
+The experiment compares three lexical retrieval approaches. BM25 provides a conventional word-token baseline \citep{robertson1995okapi}. Character n-gram TF-IDF represents text through overlapping character sequences, which can preserve partial spelling similarity. The hybrid system combines the BM25 and character TF-IDF rankings through Reciprocal Rank Fusion, a rank-aggregation approach introduced by \citet{cormack2009rrf}.
+
+The study is intentionally limited in scope. It does not evaluate a large language model, generate chatbot responses, verify automotive compatibility, or use real customer records. Instead, it asks a controlled question: how do these three retrieval methods perform on a small synthetic catalog when query spelling varies in predefined ways?
+
+\section{Related Work}
+\subsection{Mixed-language and code-mixed text}
+Research on mixed-language queries has highlighted that information retrieval systems may respond differently to native-language, English, and mixed-language query forms. The MiLQ benchmark studies bilingual web-search queries and retrieval performance across query-language conditions \citep{kim2025milq}. COMI-LINGUA provides a manually annotated Hindi-English code-mixed dataset across multiple natural-language-processing tasks, including language identification, named-entity recognition, and machine translation \citep{sheth2025comi}. CodeMixBench evaluates code-mixing capabilities across multiple languages and tasks, providing a broader benchmark perspective on the processing of mixed-language inputs \citep{yang2025codemixbench}.
+
+The present experiment is narrower than these resources. It does not attempt to benchmark general code-mixed language understanding. It uses a small synthetic set of Roman-script Hinglish-style product queries to compare item-retrieval methods under controlled spelling variation.
+
+\subsection{Lexical information retrieval}
+BM25 is a probabilistic term-weighting approach used widely in information retrieval. Its ranking function incorporates term frequency, inverse document frequency, and document-length normalization; the Okapi experiments are a foundational reference for this family of methods \citep{robertson1995okapi}. Vector-space retrieval represents documents and queries through weighted term features, with TF-IDF and cosine similarity among standard methods described by \citet{manning2008ir}. Character n-gram features operate on overlapping character sequences rather than complete word tokens and may retain partial matches when a query contains spelling variation.
+
+\subsection{Rank fusion}
+Reciprocal Rank Fusion combines ranked lists by accumulating reciprocal-rank contributions from multiple systems \citep{cormack2009rrf}. In this experiment, RRF combines the BM25 and character TF-IDF rankings. Its performance is evaluated empirically rather than assumed to be better than either individual method.
+
+\section{Research Objectives}
+The study has three objectives:
+\begin{enumerate}
+  \item Compare BM25, character n-gram TF-IDF, and hybrid RRF using Top-1 and Top-3 retrieval accuracy on answerable synthetic queries.
+  \item Examine how retrieval performance changes across clean, light-variation, and heavy-variation query conditions.
+  \item Inspect selected retrieval errors to identify whether a method retrieves the correct component, the correct vehicle, both, or neither.
+\end{enumerate}
+The primary research question is: \emph{How do the three retrieval approaches compare on this synthetic Roman-script Hinglish-style product-query task, overall and under different levels of spelling variation?}
+
+\section{Methodology}
+\subsection{Synthetic catalog construction}
+A synthetic catalog of 100 records is generated using a fixed random seed (42). The generator samples from 12 automotive component categories and 10 vehicle labels, subject to predefined component--vehicle constraints. Each record contains an integer identifier, a canonical component label, a vehicle label, a title, and a short retrieval-text field. The title follows the form "component for vehicle." The retrieval-text field adds a predefined component alias and generated descriptive tokens.
+
+The catalog is a controlled text corpus, not a set of verified retail products. It does not include authentic stock information, manufacturer part numbers, prices, model years, or validated compatibility relationships.
+
+\subsection{Query generation}
+The generator creates 180 queries, with 60 assigned to each of three conditions:
+\begin{itemize}
+  \item \textbf{Clean:} canonical component and vehicle spellings are used.
+  \item \textbf{Light variation:} a predefined component alias may replace the canonical component phrase, while the vehicle label remains canonical.
+  \item \textbf{Heavy variation:} predefined spelling perturbations may be applied to both component and vehicle terms.
+\end{itemize}
+Queries are assembled from eight short templates containing English product terminology and Romanized Hindi expressions. The aliases and spelling perturbations are authored in the generator; they are not estimated from real user messages. Of the 180 records, 164 refer to catalog entries that exist and have a gold product identifier. The remaining 16 refer to component--vehicle pairs absent from the generated catalog and are designated unanswerable. The file contains 173 unique query strings, so some strings occur more than once.
+
+\begin{table}[htbp]
+\centering
+\caption{Summary of the synthetic evaluation dataset.}
+\label{tab:dataset}
+\begin{tabular}{lr}
+\toprule
+\textbf{Dataset characteristic} & \textbf{Count} \\
+\midrule
+Synthetic catalog records & 100 \\
+Component categories & 12 \\
+Vehicle labels & 10 \\
+Generated query records & 180 \\
+Clean queries & 60 \\
+Light-variation queries & 60 \\
+Heavy-variation queries & 60 \\
+Answerable queries & 164 \\
+Unanswerable queries & 16 \\
+Unique query strings & 173 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Retrieval methods}
+All methods index the same catalog text, formed by concatenating each product title and retrieval-text field.
+
+\paragraph{BM25.} Query and document text are converted to lowercase alphanumeric tokens. BM25 scores each catalog record using the implementation provided by the \texttt{rank\_bm25} Python package, with its default parameters.
+
+\paragraph{Character n-gram TF-IDF.} A TF-IDF vectorizer is configured with the \texttt{char\_wb} analyzer, character n-gram range 3--5, and sublinear term frequency. The query is compared with catalog vectors using the vectorizer's L2-normalized dot product, equivalent to cosine similarity for these vectors. The implementation uses scikit-learn \citep{pedregosa2011sklearn}.
+
+\paragraph{Hybrid RRF.} The hybrid method combines the two full rankings. For catalog item $d$, its fusion score is
+\begin{equation}
+S_{\mathrm{RRF}}(d)=\sum_{r\in\{\mathrm{BM25},\mathrm{char}\}}\frac{1}{60+p_r(d)},
+\label{eq:rrf}
+\end{equation}
+where $p_r(d)$ is the zero-based position of item $d$ in ranking $r$. This zero-based convention is retained from the supplied implementation for reproducibility.
+
+\subsection{Evaluation metrics}
+The primary metric is Top-1 accuracy: the proportion of answerable queries for which the first-ranked catalog item matches the gold identifier. Top-3 accuracy is the proportion of answerable queries for which the gold item appears among the first three results:
+\begin{align}
+\mathrm{Top\text{-}1} &= \frac{\text{queries with correct first result}}{N},\\
+\mathrm{Top\text{-}3} &= \frac{\text{queries with correct item in first three}}{N},
+\end{align}
+where $N$ is the number of answerable queries in the relevant evaluation set. Unanswerable queries are excluded from these top-$k$ accuracy calculations because they do not have a relevant catalog identifier.
+
+For Top-1 accuracy, 95\% percentile-bootstrap intervals are calculated using 2,000 resamples of query-level correctness indicators with replacement. The intervals are descriptive uncertainty summaries. No paired significance test is conducted.
+
+\section{Experimental Setup}
+The experiment is implemented in Python using NumPy, scikit-learn, and the \texttt{rank\_bm25} package. Python's random generator and NumPy are initialized with seed 42. The data-generation and evaluation code is provided in \texttt{src/experiment.py}; figure-generation code is provided in \texttt{src/make\_figures.py}. The input records and result file are included in the repository.
+
+All three methods are evaluated against the same 100-record synthetic catalog. Results are reported for the answerable subset overall and separately for the clean, light-variation, and heavy-variation conditions. The answerable evaluation sizes are 53, 54, and 57, respectively, for a total of 164. The remaining 16 queries are unanswerable under the generated catalog.
+
+Figure~\ref{fig:workflow} summarizes the evaluation pipeline. No model training, parameter tuning on a held-out set, or human assessment is conducted.
+
+\begin{figure}[htbp]
+\centering
+\includeorplaceholder{figures/fig4_experimental_workflow.pdf}{0.98}
+\caption{Experimental workflow. The same synthetic catalog is indexed by BM25 and character TF-IDF; the hybrid method fuses the two rankings before Top-$k$ evaluation.}
+\label{fig:workflow}
+\end{figure}
+
+\section{Results}
+\subsection{Overall retrieval performance}
+Character n-gram TF-IDF achieves the highest overall Top-1 accuracy at 89.6\%, followed by hybrid RRF at 74.4\% and BM25 at 72.6\%. Character TF-IDF also has the highest overall Top-3 accuracy (95.1\%). Table~\ref{tab:overall} reports the complete overall comparison, including percentile-bootstrap intervals for Top-1 accuracy.
+
+\begin{table}[htbp]
+\centering
+\caption{Overall retrieval performance on 164 answerable queries.}
+\label{tab:overall}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Method} & \textbf{Top-1} & \textbf{95\% bootstrap interval} & \textbf{Top-3} \\
+\midrule
+BM25 & 72.6\% & 65.9--79.3\% & 75.6\% \\
+Character TF-IDF & \textbf{89.6\%} & \textbf{84.8--93.9\%} & \textbf{95.1\%} \\
+Hybrid RRF & 74.4\% & 67.7--80.5\% & 85.4\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figure~\ref{fig:overall} visualizes overall Top-1 accuracy and its bootstrap interval. Character TF-IDF exceeds BM25 by 17.1 percentage points and hybrid RRF by 15.2 percentage points on this dataset.
+
+\begin{figure}[htbp]
+\centering
+\includeorplaceholder{figures/fig1_overall_top1.pdf}{0.88}
+\caption{Overall Top-1 accuracy on answerable queries. Error bars indicate 95\% percentile-bootstrap intervals.}
+\label{fig:overall}
+\end{figure}
+
+\subsection{Performance by query-variation condition}
+The performance gap is largest in the heavy-variation condition. Character TF-IDF reaches 80.7\% Top-1 accuracy, compared with 26.3\% for BM25 and 33.3\% for hybrid RRF. In the clean condition, BM25 records 100.0\% Top-1 accuracy, while character TF-IDF records 94.3\%. In the light-variation condition, all three methods record 94.4\% Top-1 accuracy. Thus, the aggregate advantage of character TF-IDF is concentrated in the heavy-variation group rather than being uniform across all query types.
+
+\begin{table}[htbp]
+\centering
+\caption{Top-1 and Top-3 accuracy by query-variation condition.}
+\label{tab:stratified}
+\small
+\begin{tabular}{llrrrrrr}
+\toprule
+ & & \multicolumn{2}{c}{\textbf{BM25}} & \multicolumn{2}{c}{\textbf{Character TF-IDF}} & \multicolumn{2}{c}{\textbf{Hybrid RRF}} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}
+\textbf{Condition} & \textbf{$n$} & \textbf{Top-1} & \textbf{Top-3} & \textbf{Top-1} & \textbf{Top-3} & \textbf{Top-1} & \textbf{Top-3} \\
+\midrule
+Clean & 53 & 100.0\% & 100.0\% & 94.3\% & 98.1\% & 98.1\% & 100.0\% \\
+Light variation & 54 & 94.4\% & 96.3\% & 94.4\% & 98.1\% & 94.4\% & 96.3\% \\
+Heavy variation & 57 & 26.3\% & 33.3\% & 80.7\% & 89.5\% & 33.3\% & 61.4\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figures~\ref{fig:top1-noise} and~\ref{fig:top3-noise} show the Top-1 and Top-3 patterns across the three conditions.
+
+\begin{figure}[htbp]
+\centering
+\includeorplaceholder{figures/fig2_top1_by_noise.pdf}{0.92}
+\caption{Top-1 retrieval accuracy by query-variation condition. Values are percentages of answerable queries within each condition.}
+\label{fig:top1-noise}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includeorplaceholder{figures/fig3_top3_by_noise.pdf}{0.92}
+\caption{Top-3 retrieval accuracy by query-variation condition. Values are percentages of answerable queries within each condition.}
+\label{fig:top3-noise}
+\end{figure}
+
+\subsection{Illustrative retrieval errors}
+Selected heavy-variation examples show that retrieving the correct component does not guarantee retrieving the correct vehicle. For the query \texttt{bhai air filtr i-20 me lagega?}, all three methods retrieve an air-filter record first, but the returned vehicle differs from the target i20. For the query \texttt{radietar swivt ka kitne ka hai}, character TF-IDF retrieves the correct full item, while BM25 and hybrid RRF return a different component. These examples illustrate error types and are not a separate quantitative evaluation.
+
+\section{Discussion}
+The main observation is that character n-gram TF-IDF is more robust than the two comparison systems to the particular spelling perturbations used in the heavy-variation query set. Character-level features can retain overlap between misspelled query strings and catalog terms even when complete word tokens differ. This offers a plausible explanation for the large heavy-variation performance gap, although the experiment does not isolate individual spelling phenomena or test alternative feature ranges.
+
+The results also show that the best method depends on query condition. BM25 performs perfectly on the clean answerable subset, and all three methods perform similarly on light variation. Character TF-IDF's overall lead is associated mainly with the heavy-variation group. The hybrid method does not improve upon character TF-IDF in this setup, despite combining two rankings. This is an empirical result for this implementation and dataset; it does not establish that rank fusion is generally ineffective.
+
+The qualitative examples highlight the importance of entity-level correctness. A result that identifies the correct component but the wrong vehicle is still an error under the study's relevance definition. A practical product-search system would therefore need reliable handling of both product-category and vehicle attributes, potentially with structured compatibility constraints beyond lexical similarity.
+
+\section{Limitations}
+Several limitations constrain interpretation:
+\begin{enumerate}
+  \item \textbf{Synthetic data.} The catalog, queries, aliases, and spelling perturbations are generated from predefined lists and templates. They do not represent observed customer language or verified product inventories.
+  \item \textbf{Narrow coverage.} The catalog contains 100 generated records, 12 component categories, and 10 vehicle labels. It omits model years, variants, engine types, part numbers, inventory, and real fitment relationships.
+  \item \textbf{Query repetition and dependence.} The 180 records contain 173 unique query strings. Queries are generated from a small template set and may share component--vehicle combinations or linguistic patterns. The bootstrap procedure resamples query-level outcomes independently and does not model these dependencies.
+  \item \textbf{Limited noise design.} The three noise conditions are operationalized by handcrafted substitutions. They do not cover the full range of Romanized Hindi spelling, regional variation, transliteration, code-mixing, or natural typing behaviour.
+  \item \textbf{Retrieval-only evaluation.} No large language model, chatbot response generation, user interaction, or end-to-end customer-support workflow is evaluated.
+  \item \textbf{No inferential comparison.} The report provides descriptive bootstrap intervals for Top-1 accuracy but does not conduct a paired significance test or external validation.
+\end{enumerate}
+The original script also stores an exploratory score-threshold calculation for unanswerable queries. Because raw scores are method-dependent and no calibration or threshold-selection validation is performed, those fields are retained for traceability but are not interpreted as evidence of reliable abstention.
+
+\section{Conclusion}
+In this synthetic pilot evaluation, character n-gram TF-IDF achieves the highest overall Top-1 and Top-3 retrieval accuracy among the three tested approaches. Its advantage is especially pronounced for the heavy spelling variations encoded in the generated queries, while BM25 remains strongest on the clean subset. The findings support further investigation of character-level retrieval for Roman-script, mixed-language product queries, but they do not establish performance on real e-commerce traffic. A meaningful next validation step would be to evaluate on a consented, de-identified set of naturally occurring queries and a verified product catalog.
+
+\section*{References}
+\printbibliography[heading=none]
+\appendix
+\section*{Appendices}
+\input{appendix/appendix_samples}
+\end{document}
