@@ -7,7 +7,9 @@ on:
       - "README.md"
       - "src/**"
       - "results/results.json"
-      - "paper/**"
+      - "paper/main.tex"
+      - "paper/references.bib"
+      - "paper/appendix/**"
       - ".github/workflows/build-paper.yml"
   workflow_dispatch:
 
