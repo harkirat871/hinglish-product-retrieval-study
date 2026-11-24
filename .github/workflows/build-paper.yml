@@ -1,0 +1,50 @@
+name: Build figures and manuscript PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "README.md"
+      - "src/**"
+      - "results/results.json"
+      - "paper/**"
+      - ".github/workflows/build-paper.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate figures
+        run: python src/make_figures.py
+
+      - name: Install LaTeX toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk biber texlive-latex-extra texlive-fonts-recommended texlive-bibtex-extra
+
+      - name: Compile manuscript
+        working-directory: paper
+        run: latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+
+      - name: Commit generated outputs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Build manuscript PDF and figure assets"
+          file_pattern: "paper/main.pdf paper/figures/*.pdf paper/figures/*.png results/figures/*.png"

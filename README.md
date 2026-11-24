@@ -2,7 +2,7 @@
 
 A reproducible synthetic pilot study comparing BM25, character n-gram TF-IDF, and hybrid Reciprocal Rank Fusion (RRF) on Roman-script Hinglish-style automotive product queries with controlled spelling variation.
 
-> **Dataset status:** The catalog and all queries are synthetic. They are not real customer messages, scraped retailer listings, verified inventory, or validated vehicle-fitment records. Results apply only to this constructed benchmark.
+> **Dataset status:** The catalog and all queries are synthetic. They are not real customer messages, scraped retailer listings, verified inventory, or validated vehicle-fitment records.
 
 ## Main result
 
@@ -21,7 +21,11 @@ python src/experiment.py
 python src/make_figures.py
 ```
 
-The experiment script regenerates the synthetic CSV files and result JSON with fixed random seeds. The figure script creates PDF and PNG figures. To compile the LaTeX manuscript, install a LaTeX distribution with Biber and run `latexmk -pdf main.tex` from `paper/`, or upload the manuscript files to Overleaf.
+The experiment script regenerates the synthetic CSV files and result JSON with fixed random seeds. The figure script creates publication-ready PDF and PNG figures.
+
+## Manuscript
+
+The LaTeX source and bibliography are in `paper/`. The manuscript PDF and generated figures are built automatically by GitHub Actions whenever the source, figures script, results, or README changes. You can also run the workflow manually from the repository's **Actions** tab.
 
 ## Methods
 
