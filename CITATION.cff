@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it using the metadata below."
+title: "Evaluating Typo-Robust Product Retrieval for Hinglish E-Commerce Queries: A Comparative Synthetic Pilot Study"
+type: software
+authors:
+  - family-names: Singh
+    given-names: Harkirat
+version: 1.0.0
+date-released: 2026-11-25
+repository-code: "https://github.com/harkirat871/hinglish-product-retrieval-study"
+abstract: >-
+  A reproducible synthetic pilot study comparing BM25, character n-gram TF-IDF,
+  and hybrid Reciprocal Rank Fusion on Roman-script Hinglish-style automotive
+  product queries with controlled spelling variation. The catalog and queries
+  are synthetic; the study does not use real customer messages or verified
+  product-compatibility records.
+keywords:
+  - Hinglish
+  - code-mixing
+  - information retrieval
+  - e-commerce search
+  - spelling variation
+  - synthetic dataset
